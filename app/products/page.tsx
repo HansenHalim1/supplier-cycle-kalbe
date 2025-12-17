@@ -50,8 +50,15 @@ export default function ProductsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Products</h1>
-        {feedback && <span className="text-sm text-green-700">{feedback}</span>}
+        <div>
+          <p className="text-sm uppercase tracking-wide text-slate-500">Catalog</p>
+          <h1 className="text-3xl font-bold text-slate-900">Products</h1>
+        </div>
+        {feedback && (
+          <span className="rounded-full bg-green-50 px-3 py-1 text-sm font-semibold text-green-700">
+            {feedback}
+          </span>
+        )}
       </div>
 
       <ProductForm
@@ -61,7 +68,7 @@ export default function ProductsPage() {
         onCancel={() => setEditing(null)}
       />
 
-      <div className="overflow-hidden rounded border bg-white">
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
             <thead className="bg-gray-100 text-left">
@@ -77,20 +84,20 @@ export default function ProductsPage() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td className="px-4 py-3" colSpan={6}>
-                    Loading products...
+                  <td className="px-4 py-4" colSpan={6}>
+                    <span className="text-gray-600">Loading products...</span>
                   </td>
                 </tr>
               ) : products.length === 0 ? (
                 <tr>
-                  <td className="px-4 py-3" colSpan={6}>
-                    No products yet. Add your first one above.
+                  <td className="px-4 py-4" colSpan={6}>
+                    <span className="text-gray-600">No products yet. Add your first one above.</span>
                   </td>
                 </tr>
               ) : (
                 products.map((product) => (
-                  <tr key={product.id} className="border-t">
-                    <td className="px-4 py-3 font-medium">{product.name}</td>
+                  <tr key={product.id} className="border-t odd:bg-slate-50/60">
+                    <td className="px-4 py-3 font-medium text-slate-900">{product.name}</td>
                     <td className="px-4 py-3">{product.sku || "-"}</td>
                     <td className="px-4 py-3">
                       {product.price != null ? `$${product.price.toFixed(2)}` : "-"}
@@ -99,13 +106,13 @@ export default function ProductsPage() {
                     <td className="px-4 py-3">{product.description || "-"}</td>
                     <td className="px-4 py-3 space-x-2">
                       <button
-                        className="rounded bg-gray-200 px-3 py-1 text-xs font-semibold"
+                        className="rounded-lg bg-slate-200 px-3 py-1 text-xs font-semibold text-slate-800 transition hover:bg-slate-300"
                         onClick={() => setEditing(product)}
                       >
                         Edit
                       </button>
                       <button
-                        className="rounded bg-red-500 px-3 py-1 text-xs font-semibold text-white"
+                        className="rounded-lg bg-red-500 px-3 py-1 text-xs font-semibold text-white transition hover:bg-red-600"
                         onClick={() => handleDelete(product.id)}
                       >
                         Delete
